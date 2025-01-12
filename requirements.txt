@@ -1,0 +1,6 @@
+streamlit 
+psycopg2-binary
+Pillow
+streamlit-quill
+sqlalchemy
+python-dotenv
