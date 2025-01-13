@@ -69,7 +69,18 @@ def submit_form_page():
 
     # Response Section
     st.subheader("Response *")
-    response = st_quill(placeholder="Response", key="response")
+    response = st_quill(
+        html=True,
+        toolbar=[
+            ["bold", "italic", "underline", "strike"],
+            ["blockquote", "code-block"],
+            [{"header": 1}, {"header": 2}],
+            [{"list": "ordered"}, {"list": "bullet"}],
+            ["link", "image"],
+            ["clean"],
+        ],
+        placeholder="Start typing here...",
+    )
     if st.session_state.get("response") == "":
         st.session_state["response_error"] = True
     else:
