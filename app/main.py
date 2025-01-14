@@ -40,6 +40,7 @@ def main_content():
 
 
 def main():
+    os.makedirs("uploads", exist_ok=True)
     st.markdown(
         """
         <style>

@@ -3,15 +3,12 @@ import streamlit as st
 from streamlit_quill import st_quill
 from models import FileData, FormData
 from database import SessionLocal
+import os
 
 
 def submit_form_page():
 
     try:
-        # Base directory for file uploads
-        APP_DIR = "app"
-        UPLOAD_DIR = os.path.join(APP_DIR, "uploads")
-        os.makedirs(UPLOAD_DIR, exist_ok=True)
 
         st.title("Add Data")
 
@@ -219,7 +216,9 @@ def submit_form_page():
 
                     # Handle file uploads
                     for uploaded_file in uploaded_files:
-                        file_path = os.path.join(UPLOAD_DIR, uploaded_file.name)
+                        file_path = os.path.join(
+                            os.getcwd(), "uploads", uploaded_file.name
+                        )
                         with open(file_path, "wb") as f:
                             f.write(uploaded_file.getbuffer())
 
