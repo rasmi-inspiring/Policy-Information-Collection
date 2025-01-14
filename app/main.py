@@ -23,7 +23,6 @@ st.set_page_config(page_title="Policy Data Collection", layout="wide")
 
 def main_content():
     try:
-        create_tables()
         st.title("Policy Data Collection")
 
         # Create tabs for different functionalities
@@ -88,4 +87,5 @@ def main():
 
 
 if __name__ == "__main__":
+    create_tables()
     main()
