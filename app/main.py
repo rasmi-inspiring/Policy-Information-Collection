@@ -3,6 +3,7 @@ import streamlit as st
 from services.login_func import login
 from services.submit_form import submit_form_page
 from services.view_data import view_data_page
+from services.edit_data import edit_data_page
 
 from database import engine, Base
 from sqlalchemy.exc import OperationalError
@@ -23,19 +24,19 @@ st.set_page_config(page_title="Policy Data Collection", layout="wide")
 
 def main_content():
     try:
-        st.title("Policy Data Collection")
+        tab1, tab2, tab3 = st.tabs(["Add Data", "View Data", "Edit Data"])
 
-        # Create tabs for different functionalities
-        tabs = st.tabs(["Add Data", "View Data"])
-
-        with tabs[0]:
+        with tab1:
             submit_form_page()
 
-        with tabs[1]:
+        with tab2:
             view_data_page()
 
+        with tab3:
+            edit_data_page()
+
     except Exception as e:
-        st.error("An error occured while trying to load the application.")
+        st.error(f"An error occurred while loading the main content.")
 
 
 def main():

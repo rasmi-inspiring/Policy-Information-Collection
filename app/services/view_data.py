@@ -120,6 +120,10 @@ def view_data_page():
 
                     # Section 4: Validation Info
                     st.markdown("---")
+                    st.markdown(
+                        "<h3 style='font-size: 24px;'>Validated By</h3>",
+                        unsafe_allow_html=True,
+                    )
                     col1, col2 = st.columns([1, 1])
                     with col1:
                         display_key_value(
