@@ -1,22 +1,10 @@
 import streamlit as st
-
+import os
 from services.login_func import login
 from services.submit_form import submit_form_page
 from services.view_data import view_data_page
 from services.edit_data import edit_data_page
-
-from database import engine, Base
-from sqlalchemy.exc import OperationalError
-from models import FormData, FileData, User
-import os
-
-
-def create_tables():
-    try:
-        Base.metadata.create_all(bind=engine)
-    except OperationalError as e:
-        st.error(f"An error occured while running the application.")
-
+from services.utils import create_tables
 
 # Set the page layout to 'wide'
 st.set_page_config(page_title="Policy Data Collection", layout="wide")

@@ -18,7 +18,7 @@ def edit_data_page():
         # Select query to edit
         with SessionLocal() as session:
             queries = session.query(FormData).order_by(FormData.id.desc()).all()
-            query_options = {f"{q.id} - {q.topic}": q.id for q in queries}
+            query_options = {f"{q.id} - {q.query}": q.id for q in queries}
             selected_query = st.selectbox(
                 "Select a Query to Edit",
                 options=list(query_options.keys()),
