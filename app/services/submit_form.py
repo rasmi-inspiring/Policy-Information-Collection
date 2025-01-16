@@ -6,6 +6,27 @@ from database import SessionLocal
 
 from services.utils import is_quill_content_empty, validate_field
 
+office_list = [
+    "Inland Revenue Department",
+    "Department of Passport",
+    "District Administration Office",
+    "Local Municipality Office",
+    "Ward Office",
+    "Nepal Immigration Department",
+    "Ministry of Education",
+    "Department of Transport Management",
+    "District Education Office",
+    "District Health Office",
+    "District Land Revenue Office",
+    "Department of Foreign Employment",
+    "Department of Agriculture",
+    "District Transport Management Office",
+    "Ministry of Youth and Sports",
+    "Ministry of Women, Children, and Senior Citizens",
+    "Department of Cooperatives",
+    "Other",
+]
+
 
 def submit_form_page():
     try:
@@ -14,7 +35,11 @@ def submit_form_page():
         with st.container():
             # Category Section
             st.subheader("Category")
-            category = st.selectbox("", ["Government", "Non-Government", "Others"])
+            category = st.selectbox("", ["Government", "Non-Government", "Other"])
+            if category == "Other":
+                category = st.text_input("Enter your category:")
+
+            # st.write("Selected Category:", category)
             validate_field("category", category)
 
         # Related Offices Section
@@ -23,12 +48,31 @@ def submit_form_page():
             col1, col2 = st.columns(2)
 
             with col1:
-                related_office = st.text_input("Primary Office *", key="related_office")
-                validate_field("related_office")
-                related_secondary_office_1 = st.text_input(
-                    "Secondary Office 1 (optional)", key="related_secondary_office_1"
+                related_office = st.selectbox(
+                    "Select the primary office. *", office_list
                 )
-                validate_field("related_secondary_office_1")
+                if related_office == "Other":
+                    related_office_other = st.text_input(
+                        "Enter the name of the primary office: *"
+                    )
+                    related_office = (
+                        related_office_other if related_office_other.strip() else None
+                    )  # Handle empty input
+                validate_field(related_office)
+
+                related_secondary_office_1 = st.selectbox(
+                    "Select the secondary office. *", office_list
+                )
+                if related_secondary_office_1 == "Other":
+                    related_secondary_office_1_other = st.text_input(
+                        "Enter the name of the secondary office: *"
+                    )
+                    related_secondary_office_1 = (
+                        related_secondary_office_1_other
+                        if related_secondary_office_1_other.strip()
+                        else None
+                    )
+                validate_field(related_secondary_office_1)
 
             with col2:
                 related_secondary_office_2 = st.text_input(
