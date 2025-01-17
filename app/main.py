@@ -4,7 +4,7 @@ from services.login_func import login
 from services.submit_form import submit_form_page
 from services.view_data import view_data_page
 from services.edit_data import edit_data_page
-from services.utils import create_tables
+from utils.helpers import create_tables, hide_anchor_link
 
 # Set the page layout to 'wide'
 st.set_page_config(page_title="Policy Data Collection", layout="wide")
@@ -29,17 +29,6 @@ def main_content():
 
 def main():
     os.makedirs("uploads", exist_ok=True)
-    st.markdown(
-        """
-        <style>
-        [data-testid="stSidebar"] {
-            width: 400px;  /* Adjust the sidebar width */
-            min-width: 400px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 
     login()
 
@@ -77,4 +66,5 @@ def main():
 
 if __name__ == "__main__":
     create_tables()
+    hide_anchor_link()
     main()

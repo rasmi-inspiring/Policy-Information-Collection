@@ -1,10 +1,10 @@
 import streamlit as st
 import os
 from sqlalchemy.orm import Session
-from database import (
+from connection.database import (
     SessionLocal,
 )
-from models import User
+from connection.models import User
 
 
 # Function to get the user from the database

@@ -1,8 +1,8 @@
 import os
 import streamlit as st
 from streamlit_quill import st_quill
-from models import FileData, FormData
-from database import SessionLocal
+from connection.models import FileData, FormData
+from connection.database import SessionLocal
 
 
 def edit_data_page():

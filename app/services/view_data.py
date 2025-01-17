@@ -1,7 +1,7 @@
 import streamlit as st
-from models import FileData, FormData
+from connection.models import FileData, FormData
 from sqlalchemy.orm import Session
-from database import engine
+from connection.database import engine
 
 
 def view_data_page():

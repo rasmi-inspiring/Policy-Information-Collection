@@ -5,7 +5,7 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship,
 )
-from database import Base
+from connection.database import Base
 
 
 class FormData(Base):

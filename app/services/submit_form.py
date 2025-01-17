@@ -1,14 +1,15 @@
 import os
 import streamlit as st
 from streamlit_quill import st_quill
-from models import FileData, FormData
-from database import SessionLocal
+from connection.models import FileData, FormData
+from connection.database import SessionLocal
 import json
-from services.utils import is_quill_content_empty, validate_field
+from utils.helpers import is_quill_content_empty, validate_field
 
 
 def load_offices():
-    json_file_path = os.path.join(os.path.dirname(__file__), "offices.json")
+    json_file_path = os.path.join(os.path.dirname(__file__), "../utils/offices.json")
+    json_file_path = os.path.abspath(json_file_path)
 
     with open(json_file_path, "r") as file:
         data = json.load(file)
@@ -231,4 +232,4 @@ def submit_form_page():
                 session.rollback()
 
     except Exception as e:
-        st.error(f"An error occurred while loading the form.")
+        st.error(f"An error occurred while loading the form. {e}")

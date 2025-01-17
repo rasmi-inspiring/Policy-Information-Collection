@@ -1,7 +1,7 @@
 import streamlit as st
-from database import engine, Base
+from connection.database import engine, Base
 from sqlalchemy.exc import OperationalError
-from models import FormData, FileData, User
+from connection.models import FormData, FileData, User
 
 
 def create_tables():
@@ -9,6 +9,19 @@ def create_tables():
         Base.metadata.create_all(bind=engine)
     except OperationalError as e:
         st.error(f"An error occured while running the application.")
+
+
+def hide_anchor_link():
+    st.markdown(
+        """
+        <style>
+        .stApp a:first-child {
+            display: none;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def is_quill_content_empty(html_content):
