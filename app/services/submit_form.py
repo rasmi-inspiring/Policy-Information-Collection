@@ -3,29 +3,16 @@ import streamlit as st
 from streamlit_quill import st_quill
 from models import FileData, FormData
 from database import SessionLocal
-
+import json
 from services.utils import is_quill_content_empty, validate_field
 
-office_list = [
-    "Inland Revenue Department",
-    "Department of Passport",
-    "District Administration Office",
-    "Local Municipality Office",
-    "Ward Office",
-    "Nepal Immigration Department",
-    "Ministry of Education",
-    "Department of Transport Management",
-    "District Education Office",
-    "District Health Office",
-    "District Land Revenue Office",
-    "Department of Foreign Employment",
-    "Department of Agriculture",
-    "District Transport Management Office",
-    "Ministry of Youth and Sports",
-    "Ministry of Women, Children, and Senior Citizens",
-    "Department of Cooperatives",
-    "Other",
-]
+
+def load_offices():
+    json_file_path = os.path.join(os.path.dirname(__file__), "offices.json")
+
+    with open(json_file_path, "r") as file:
+        data = json.load(file)
+    return data.get("office_list", [])
 
 
 def submit_form_page():
@@ -39,7 +26,6 @@ def submit_form_page():
             if category == "Other":
                 category = st.text_input("Enter your category:")
 
-            # st.write("Selected Category:", category)
             validate_field("category", category)
 
         # Related Offices Section
@@ -48,6 +34,7 @@ def submit_form_page():
             col1, col2 = st.columns(2)
 
             with col1:
+                office_list = load_offices()
                 related_office = st.selectbox(
                     "Select the primary office. *", office_list
                 )
@@ -60,19 +47,10 @@ def submit_form_page():
                     )  # Handle empty input
                 validate_field(related_office)
 
-                related_secondary_office_1 = st.selectbox(
-                    "Select the secondary office. *", office_list
+                related_secondary_office_1 = st.text_input(
+                    "Secondary Office 1 (optional)", key="related_secondary_office_1"
                 )
-                if related_secondary_office_1 == "Other":
-                    related_secondary_office_1_other = st.text_input(
-                        "Enter the name of the secondary office: *"
-                    )
-                    related_secondary_office_1 = (
-                        related_secondary_office_1_other
-                        if related_secondary_office_1_other.strip()
-                        else None
-                    )
-                validate_field(related_secondary_office_1)
+                validate_field("related_secondary_office_1")
 
             with col2:
                 related_secondary_office_2 = st.text_input(
